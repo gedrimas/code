@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>Задача №1</h3>
+    <p>Написать функцию, которая перебирает целые числа от 0 до бесконечности и выводит на экран, через запятую, те, которые делятся без остатка на количество разрядов (знаков) этого числа (т.е. те двухзначные, которые делятся на 2, трехзначные на три и т.д.). Выполнение обработки должно остановиться в тот момент, когда всего будет выведено N (задается пользователем) таких чисел.
+        <button data-go="task_1">Решение</button>
+        <button data-code="task_1">Код</button>
+    </p>
+
+    <h3>Задача №2</h3>
+    <p>Реализовать метод `.delay`
+        <button data-go="task_2">Решение</button>
+        <button data-code="task_2">Код</button>
+    </p>
+
+    <h3>Задача №3</h3>
+    <p><pre>// Сейчас console выводит "undefined", нужно это исправить
+
+
+        function Bomb(message, delay) {
+        this.message = message;
+        setTimeout(this.blowUp, delay * 1000); // взрываем через delay sec
+        }
+
+
+        Bomb.prototype.blowUp = function () {
+        console.log(this.message);
+        };
+
+
+        new Bomb("Allahu akbar!", .5);</pre>
+        <button data-go="task_3">Решение</button>
+        <button data-code="task_3">Код</button>
+    </p>
+
+    <h3>Задача №4</h3>
+    <p><pre>Реализовать функцию sum
+        var sum = function () {
+};
+
+console.log("result:", sum(1, 2, 3, 4, 5));</pre>
+    <button data-go="task_4">Решение</button>
+    <button data-code="task_4">Код</button>
+    </p>
+
+    <h3>Задача №5</h3>
+    <p><pre>//Создайте декоратор makeLogging(func, log), для функции func возвращающий обёртку,
+// которая при каждом вызове добавляет её аргументы в массив log.
+function decorate(fn, log) {
+    /* ваш код */
+}
+
+function work(a, b) {
+    console.log( a + b ); // work - произвольная функция
+}
+
+var log = [];
+work = decorate(work, log);
+work(1, 2); // -> 3
+
+console.log(log[0][0] === 1, log[0][1] === 2);</pre>
+    <button data-go="task_5">Решение</button>
+    <button data-code="task_5">Код</button>
+    </p>
+
+    <h3>Задача №6</h3>
+    <p><pre>var inputData = '1, -5.8 или 10, хотя 34 + -5.3 и 73';
+
+
+/**
+ * Найти min/max в произвольной строке
+ * @param   {String} входные данные
+ * @returns {{min:Number, max:Number}}  объект
+ */
+function getMinMax(string) {
+	// ...
+}
+
+
+console.log(getMinMax(inputData));</pre>
+    <button data-go="task_6">Решение</button>
+    <button data-code="task_6">Код</button>
+    </p>
+
+
+
+
+<script>
+
+    document.body.onclick = function(e){
+        let target = e.target;
+        if(target.tagName != 'BUTTON'){
+            return;
+        }else{
+            target.dataset.go ? window[target.dataset.go]() : alert(window[target.dataset.code]);
+        }
+    }
+
+    function task_1() {
+
+        let control_arr = [];
+        let control_num = +prompt('Введите количество чисел', '');
+        let number = Infinity;
+        for (let i = 1; i < number; i++) {
+            let del = '' + i;
+            let array = del.split('');
+            let len = array.length;
+
+            if (i % len == 0) {
+                control_arr.push(i);
+                if (control_arr.length == control_num) {
+                    break;
+                }
+            }
+        }
+        let res = control_arr.join(',');
+        alert(res);
+    }
+
+    function task_2(){
+
+        foo.delay = function (ms) {
+            setTimeout(this, ms);
+        };
+
+        function foo() {
+            alert("Wow!");
+        }
+
+        foo.delay(1000);
+    }
+
+    function task_3(){
+
+        function Bomb(message, delay) {
+            this.message = message;
+            setTimeout(this.blowUp.bind(this), delay * 1000); // взрываем через delay sec
+        }
+
+
+        Bomb.prototype.blowUp = function () {
+            alert(this.message);
+        };
+
+
+        new Bomb("Allahu akbar!", .5);
+    }
+
+    function task_4(){
+
+        var sum = function () {
+
+            arguments.mas = [].slice;
+            let a_mas = arguments.mas();
+
+            let result = a_mas.reduce(function( cur_sum, current){
+                return cur_sum + current;
+            });
+
+            return result;
+        };
+
+        alert(sum(1, 2, 3, 4, 5));
+    }
+
+    function task_5(){
+
+        function decorate(fn, log) {
+            this.log = log;
+            return function(){
+                arguments.mas = [].slice;
+                let arg_mas = arguments.mas();
+                log.splice(0,0,arg_mas);
+                return fn.apply(this, arguments);
+            }
+        }
+
+        function work(a, b) {
+            console.log( a + b ); // work - произвольная функция
+        }
+
+        var log = [];
+        work = decorate(work, log);
+        work(1, 2); // -> 3
+        alert(log[0][0] === 1, log[0][1] === 2);
+    }
+
+    function task_6(){
+
+        var inputData = '1, -5.8 или 10, хотя 34 + -5.3 и 73';
+
+        function getMinMax(string) {
+
+            let regexp = /-*\d\.*\d*/g;
+            let result = string.match(regexp);
+
+            for(let i = 0; i < result.length; i++){
+                result[i] = +result[i];
+            }
+
+            let max = Math.max(...result);
+            let min = Math.min(...result);
+
+            let obj_min_max = {
+                min: min,
+                max: max
+            }
+
+            return obj_min_max;
+        }
+        alert("А теперь, пожалуйста, откройте консоль :)")
+        console.log(getMinMax(inputData));
+    }
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
